@@ -1,23 +1,14 @@
 # Rails Movie API
 
-Some description.
+A RESTful movie API with OpenAPI and JWT auth.
 
-## Development Environment
+## Tech Stack
 
-### Ruby/Rails
-- Ruby 3.3.8
-- Rails 8.0.2
+- Ruby 3.3.8 / Rails 8.0.2
 - PostgreSQL 16.9
+- Docker 28.3.2 / Docker Compose v2.38.2
 
-### Docker
-- Docker 28.3.2
-- Docker Compose v2.38.2
-
-### Development Tools
-- Bundler 2.7.1
-- RuboCop 1.79.0
-
-## Getting Started
+## Setup Instructions
 
 ### Using Docker
 
@@ -50,6 +41,44 @@ bin/rails db:prepare # (db:create + db:migrate + db:seed)
 ```bash
 bin/rails server
 ```
+
+---
+## Database Schema
+
+### ER Diagram
+
+```mermaid
+erDiagram
+    User {
+        bigint id PK
+        string username "NOT NULL, UNIQUE"
+        string password_digest "NOT NULL"
+    }
+
+    Movie {
+        bigint id PK
+        string title "NOT NULL"
+        text description
+        integer release_year
+    }
+
+    Watchlist {
+        bigint id PK
+        bigint user_id FK "NOT NULL"
+        bigint movie_id FK "NOT NULL"
+    }
+
+    User ||--o{ Watchlist : "has_many"
+    Movie ||--o{ Watchlist : "has_many"
+    Watchlist }o--|| User : "belongs_to"
+    Watchlist }o--|| Movie : "belongs_to"
+```
+
+*Note: Standard Rails timestamps (created_at, updated_at) are omitted from the diagram for clarity*
+
+### Constraints
+- `(user_id, movie_id)` combination must be unique in Watchlists
+
 
 ---
 
