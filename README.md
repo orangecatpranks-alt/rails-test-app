@@ -1,3 +1,9 @@
+# TODO:
+- Model test
+- Implement API
+- JWT auth
+- OpenAPI doc (swagger)
+
 # Rails Movie API
 
 A RESTful movie API with OpenAPI and JWT auth.

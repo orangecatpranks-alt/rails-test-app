@@ -24,6 +24,9 @@ RUN bundle install
 # Copy application code
 COPY . .
 
+# Ensure entrypoint script is executable
+RUN chmod +x docker-entrypoint-dev.sh
+
 # Expose port
 EXPOSE 3000
 
