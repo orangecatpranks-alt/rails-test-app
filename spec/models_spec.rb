@@ -78,13 +78,13 @@ RSpec.describe User, type: :model do
   describe 'username normalization' do
     it 'converts username to lowercase' do
       user = create(:user, :with_uppercase_username)
-      expect(user.username).to match(/^user\d+$/)
-      expect(user.username).not_to match(/^USER\d+$/)
+      expect(user.username).to match(/^user_\d+$/)
+      expect(user.username).not_to match(/^USER_\d+$/)
     end
 
     it 'removes leading and trailing whitespace' do
       user = create(:user, :with_spaces_in_username)
-      expect(user.username).to match(/^user\d+$/)
+      expect(user.username).to match(/^user_\d+$/)
       expect(user.username).not_to start_with(' ')
       expect(user.username).not_to end_with(' ')
     end

@@ -1,5 +1,5 @@
 # TODO:
-- Model test
+- ✅ Model test
 - Implement API
 - JWT auth
 - OpenAPI doc (swagger)
@@ -18,37 +18,44 @@ A RESTful movie API with OpenAPI and JWT auth.
 
 ### Using Docker
 
-1. Clone the repository
 ```bash
+# 1. Clone the project repository
 git clone <repository-url>
-cd rails-movie-api
-```
 
-2. Start the application
-```bash
+# 2. Navigate to the project directory
+cd <repository-name>
+
+# 3. Start the application
 docker compose up
-```
 
-3. Visit http://localhost:3000
+# 4. Visit http://localhost:3000
+```
 
 ### Local Development
 
-1. Install dependencies
 ```bash
+# 1. Install dependencies
 bundle install
-```
 
-2. Setup database
-```bash
+# 2. Setup database
 bin/rails db:prepare # (db:create + db:migrate + db:seed)
-```
 
-3. Start the server
-```bash
+# 3. Start the server
 bin/rails server
 ```
 
 ---
+
+## Testing
+
+```bash
+# Using Docker
+docker compose run test
+
+# Local Development
+bundle exec rspec
+```
+
 ## Database Schema
 
 ### ER Diagram

@@ -35,6 +35,22 @@ services:
     stdin_open: true
     tty: true
 
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    entrypoint: ["./docker-entrypoint-dev.sh"]
+    command: ["bundle", "exec", "rspec"]
+    environment:
+      - RAILS_ENV=test
+      - DATABASE_URL=postgres://postgres:password@db:5432/rails_movie_api_test
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+
 volumes:
   postgres_data:
   bundle_cache:

@@ -16,15 +16,15 @@ FactoryBot.define do
 
   # User
   factory :user do
-    sequence(:username) { |n| "user#{n}" }
+    sequence(:username) { |n| "user_#{n}" }
     password { "123456" }
 
     trait :with_uppercase_username do
-      sequence(:username) { |n| "USER#{n}" }
+      sequence(:username) { |n| "USER_#{n}" }
     end
 
     trait :with_spaces_in_username do
-      sequence(:username) { |n| "  user#{n}  " }
+      sequence(:username) { |n| "  user_#{n}  " }
     end
   end
 
