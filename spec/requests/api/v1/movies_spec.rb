@@ -8,19 +8,8 @@ RSpec.describe 'api/v1/movies', type: :request do
       produces 'application/json'
 
       response(200, 'successful') do
-        schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   title: { type: :string },
-                   description: { type: :string },
-                   release_year: { type: :integer },
-                   created_at: { type: :string, format: :datetime },
-                   updated_at: { type: :string, format: :datetime }
-                 },
-                 required: [ 'id', 'title' ]
-               }
+        schema ApiSchemas::V1.movies_list
+
         run_test!
       end
     end
