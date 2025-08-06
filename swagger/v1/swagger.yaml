@@ -1,0 +1,43 @@
+---
+openapi: 3.0.1
+info:
+  title: Movie API
+  version: v1
+  description: A REST API for managing movies and watchlists with JWT authentication
+paths:
+  "/api/v1/movies":
+    get:
+      summary: list movies
+      tags:
+      - Movies
+      description: Retrieve all movies
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    release_year:
+                      type: integer
+                    created_at:
+                      type: string
+                      format: datetime
+                    updated_at:
+                      type: string
+                      format: datetime
+                  required:
+                  - id
+                  - title
+servers:
+- url: http://localhost:3000
+  description: Development server

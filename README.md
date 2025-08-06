@@ -1,4 +1,4 @@
-# TODO:
+#### TODO:
 - ✅ Model test
 - Implement API
 - JWT auth
@@ -14,39 +14,29 @@ A RESTful movie API with OpenAPI and JWT auth.
 - PostgreSQL 16.9
 - Docker 28.3.2 / Docker Compose v2.38.2
 
-## Setup Instructions
+---
 
-### Using Docker
+## 🚀 Setup Instructions
+
+### 🐳 Using Docker
 
 ```bash
-# 1. Clone the project repository
 git clone <repository-url>
-
-# 2. Navigate to the project directory
 cd <repository-name>
-
-# 3. Start the application
 docker compose up
-
-# 4. Visit http://localhost:3000
 ```
 
-### Local Development
+### 💻 Local Development
 
 ```bash
-# 1. Install dependencies
 bundle install
-
-# 2. Setup database
 bin/rails db:prepare # (db:create + db:migrate + db:seed)
-
-# 3. Start the server
 bin/rails server
 ```
 
 ---
 
-## Testing
+## ✅ Testing
 
 ```bash
 # Using Docker
@@ -55,6 +45,47 @@ docker compose run test
 # Local Development
 bundle exec rspec
 ```
+
+---
+
+## 📘 API Documentation
+
+API documentation is available at: [http://localhost:3000/api-docs/index.html](http://localhost:3000/api-docs/index.html).
+
+---
+
+## API Endpoints
+
+### 🎬 Movies
+
+| Method | Endpoint        | Description                        |
+|--------|-----------------|------------------------------------|
+| GET    | /movies         | Retrieve a list of movies          |
+| POST   | /movies         | Create a new movie                 |
+| GET    | /movies/{id}    | Retrieve details of a specific movie |
+| PUT    | /movies/{id}    | Fully update movie information     |
+| PATCH  | /movies/{id}    | Partially update movie information |
+| DELETE | /movies/{id}    | Delete a movie                     |
+
+
+### 📺 Watchlist
+
+| Method | Endpoint                              | Description                              |
+|--------|---------------------------------------|------------------------------------------|
+| GET    | /users/me/watchlists                  | Retrieve the current user's watchlist    |
+| POST   | /users/me/watchlists                  | Add a movie to the watchlist             |
+| DELETE | /users/me/watchlists/{movie_id}       | Remove a movie from the watchlist        |
+
+
+### 🔐 Authentication
+
+| Method | Endpoint         | Description                 |
+|--------|------------------|-----------------------------|
+| POST   | /auth/login      | Issue JWT upon login        |
+| POST   | /auth/refresh    | Refresh access token        |
+
+
+---
 
 ## Database Schema
 
