@@ -1,5 +1,18 @@
 module ApiSchemas
   module V1
+    def self.pagination_metadata
+      {
+        type: :object,
+        properties: {
+          current_page: { type: :integer, example: 1 },
+          total_pages:  { type: :integer, example: 3 },
+          total_count:  { type: :integer, example: 50 },
+          per_page:     { type: :integer, example: 10 }
+        },
+        required: [ 'current_page', 'total_pages', 'total_count', 'per_page' ]
+      }
+    end
+
     def self.movie
       {
         type: :object,
@@ -22,13 +35,33 @@ module ApiSchemas
       }
     end
 
-    def self.error_response
+    def self.movies_index_response
       {
         type: :object,
         properties: {
-          error: { type: :string },
-          message: { type: :string }
-        }
+          data: movies_list,
+          meta: pagination_metadata
+        },
+        required: [ 'data', 'meta' ]
+      }
+    end
+
+    def self.internal_server_error
+      {
+        type: :object,
+        properties: {
+          status: {
+            type: :integer,
+            example: 500,
+            description: 'HTTP status code'
+          },
+          error: {
+            type: :string,
+            example: 'Internal Server Error',
+            description: 'Error message'
+          }
+        },
+        required: [ 'status', 'error' ]
       }
     end
   end

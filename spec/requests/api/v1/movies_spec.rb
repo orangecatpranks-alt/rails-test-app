@@ -7,10 +7,32 @@ RSpec.describe 'api/v1/movies', type: :request do
       description 'Retrieve all movies'
       produces 'application/json'
 
-      response(200, 'successful') do
-        schema ApiSchemas::V1.movies_list
+      ApiParameters::V1.pagination_params.each { |param| parameter param }
 
-        run_test!
+      response(200, 'successful') do
+        schema ApiSchemas::V1.movies_index_response
+
+        let(:page) { 1 }
+        let(:per_page) { 2 }
+
+        before do
+          create_list(:movie, 5)
+        end
+
+        run_test! do |response|
+          data = JSON.parse(response.body)
+          expect(data['data'].size).to eq(2)
+          expect(data['meta']['per_page']).to eq(2)
+          expect(data['meta']['total_count']).to eq(5)
+        end
+      end
+
+      response(500, 'Internal Server Error') do
+        schema ApiSchemas::V1.internal_server_error
+
+        it 'documents 500 error only' do
+          # no request — used only for OpenAPI docs
+        end
       end
     end
 
