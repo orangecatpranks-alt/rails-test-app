@@ -39,7 +39,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    entrypoint: ["./docker-entrypoint-dev.sh"]
+    entrypoint: ["./docker-entrypoint-test.sh"]
     command: ["bundle", "exec", "rspec"]
     environment:
       - RAILS_ENV=test

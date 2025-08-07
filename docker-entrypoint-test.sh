@@ -2,7 +2,7 @@
 
 set -e
 
-echo "=== Rails Dev Environment Setup ==="
+echo "=== Rails Test Environment Setup ==="
 
 # Remove a potentially pre-existing server.pid for Rails
 echo "Removing server.pid..."
@@ -17,9 +17,9 @@ else
     echo "All gems are installed"
 fi
 
-# Database setup
-echo "Setting up database..."
-bin/rails db:prepare
+# Database setup for test environment
+echo "Setting up test database..."
+bin/rails db:test:prepare
 
 echo "=== Setup complete ==="
 
