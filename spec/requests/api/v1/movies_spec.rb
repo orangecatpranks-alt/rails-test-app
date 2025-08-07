@@ -1,119 +1,27 @@
-require 'swagger_helper'
+require 'rails_helper'
 
-RSpec.describe 'api/v1/movies', type: :request do
-  path '/api/v1/movies' do
-    get('list movies') do
-      tags 'Movies'
-      description 'Retrieve all movies'
-      produces 'application/json'
+RSpec.describe "Api::V1::Movies", type: :request do
+  let!(:movie) { create(:movie) }
+  let!(:movie_with_nil) { create(:movie, description: nil, release_year: nil) }
 
-      parameter '$ref': '#/components/parameters/page'
-      parameter '$ref': '#/components/parameters/per_page'
+  describe "GET /api/v1/movies" do
+    before { get '/api/v1/movies' }
 
-      response(200, 'successful') do
-        schema ApiSchemas::V1.movies_index_response
+    it "returns a successful response" do
+      expect(response).to have_http_status(:success)
 
-        let(:page) { 1 }
-        let(:per_page) { 2 }
+      json = JSON.parse(response.body)
+      movies = json["data"]
 
-        before do
-          create_list(:movie, 5)
-        end
+      expect(movies.size).to eq(2)
 
-        run_test! do |response|
-          data = JSON.parse(response.body)
-          expect(data['data'].size).to eq(2)
-          expect(data['meta']['per_page']).to eq(2)
-          expect(data['meta']['total_count']).to eq(5)
-        end
-      end
-
-      response(500, 'Internal Server Error') do
-        schema ApiSchemas::V1.internal_server_error
-
-        it 'documents 500 error only' do
-          # no request — used only for OpenAPI docs
-        end
+      movies.each do |movie|
+        expect(movie).to include('id', 'title', 'description', 'release_year')
+        expect(movie['id']).to be_a(Integer)
+        expect(movie['title']).to be_a(String)
+        expect(movie['description']).to be_a(String).or be_nil
+        expect(movie['release_year']).to be_a(Integer).or be_nil
       end
     end
-
-    # post('create movie') do
-    #   response(200, 'successful') do
-
-    #     after do |example|
-    #       example.metadata[:response][:content] = {
-    #         'application/json' => {
-    #           example: JSON.parse(response.body, symbolize_names: true)
-    #         }
-    #       }
-    #     end
-    #     run_test!
-    #   end
-    # end
   end
-
-  # path '/api/v1/movies/{id}' do
-  #   # You'll want to customize the parameter types...
-  #   parameter name: 'id', in: :path, type: :string, description: 'id'
-
-  #   get('show movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-
-  #   patch('update movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-
-  #   put('update movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-
-  #   delete('delete movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-  # end
 end

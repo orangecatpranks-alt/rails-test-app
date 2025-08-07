@@ -50,7 +50,15 @@ bundle exec rspec
 
 ## 📘 API Documentation
 
-API documentation is available at: [http://localhost:3000/api-docs/index.html](http://localhost:3000/api-docs/index.html).
+**Swagger UI**: http://localhost:3000/api-docs
+
+### Quick Update
+1. Edit `spec/requests/api/v1/docs/*_spec.rb`
+2. Run `bin/rails rswag:specs:swaggerize`
+
+### Test Files
+- `docs/*_spec.rb` - Swagger generation
+- `*_spec.rb` - Detailed API tests
 
 ---
 
