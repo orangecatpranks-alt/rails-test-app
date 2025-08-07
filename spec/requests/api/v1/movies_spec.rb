@@ -7,7 +7,8 @@ RSpec.describe 'api/v1/movies', type: :request do
       description 'Retrieve all movies'
       produces 'application/json'
 
-      ApiParameters::V1.pagination_params.each { |param| parameter param }
+      parameter '$ref': '#/components/parameters/page'
+      parameter '$ref': '#/components/parameters/per_page'
 
       response(200, 'successful') do
         schema ApiSchemas::V1.movies_index_response

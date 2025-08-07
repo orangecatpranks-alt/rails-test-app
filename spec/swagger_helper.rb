@@ -28,7 +28,71 @@ RSpec.configure do |config|
           url: 'http://localhost:3000',
           description: 'Development server'
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          movie: {
+            type: :object,
+            properties: {
+              id: {
+                type: :integer,
+                example: 1
+              },
+              title: {
+                type: :string,
+                example: 'The Matrix'
+              },
+              description: {
+                type: :string,
+                example: 'A computer hacker learns about....'
+              },
+              release_year: {
+                type: :integer,
+                example: 1999
+              },
+              created_at: {
+                type: :string,
+                format: :date_time,
+                example: '2023-01-01T00:00:00Z'
+              },
+              updated_at: {
+                type: :string,
+                format: :date_time,
+                example: '2023-01-02T00:00:00Z'
+              }
+            },
+            required: [ 'id', 'title' ]
+          },
+          pagination_metadata: {
+            type: :object,
+            properties: {
+              current_page: { type: :integer, example: 1 },
+              total_pages:  { type: :integer, example: 3 },
+              total_count:  { type: :integer, example: 50 },
+              per_page:     { type: :integer, example: 10 }
+            },
+            required: [ 'current_page', 'total_pages', 'total_count', 'per_page' ]
+          }
+        },
+        parameters: {
+          page: {
+            name: :page,
+            in: :query,
+            type: :integer,
+            description: 'Page number (default: 1)',
+            required: false,
+            example: 1
+          },
+          per_page: {
+            name: :per_page,
+            in: :query,
+            type: :integer,
+            description: "Items per page (default: #{Kaminari.config.default_per_page}, max: #{Kaminari.config.max_per_page})",
+            required: false,
+            example: Kaminari.config.default_per_page
+          }
+        }
+      }
     }
   }
 
