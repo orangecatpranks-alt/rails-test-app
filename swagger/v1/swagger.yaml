@@ -7,7 +7,7 @@ info:
 paths:
   "/api/v1/movies":
     get:
-      summary: list movies
+      summary: List movies
       tags:
       - Movies
       description: Retrieve all movies
@@ -16,7 +16,7 @@ paths:
       - "$ref": "#/components/parameters/per_page"
       responses:
         '200':
-          description: successful
+          description: OK
           content:
             application/json:
               schema:
@@ -32,7 +32,7 @@ paths:
                 - data
                 - meta
         '500':
-          description: Internal Server Error
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -49,6 +49,61 @@ paths:
                 required:
                 - status
                 - error
+    post:
+      summary: Create a movie
+      tags:
+      - Movies
+      description: Create a new movie
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/movie"
+                required:
+                - data
+        '422':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      example: Title can't be blank
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                movie:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: The Matrix
+                    description:
+                      type: string
+                      example: A computer hacker learns from mysterious rebels about
+                        the true nature of his reality.
+                    release_year:
+                      type: integer
+                      example: 1999
+                  required:
+                  - title
+              required:
+              - movie
 servers:
 - url: http://localhost:3000
   description: Development server

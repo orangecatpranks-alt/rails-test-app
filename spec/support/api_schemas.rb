@@ -14,6 +14,34 @@ module ApiSchemas
       }
     end
 
+    def self.movie_create_request
+      {
+        type: :object,
+        properties: {
+          movie: {
+            type: :object,
+            properties: {
+              title: { type: :string, example: 'The Matrix' },
+              description: { type: :string, example: 'A computer hacker learns from mysterious rebels about the true nature of his reality.' },
+              release_year: { type: :integer, example: 1999 }
+            },
+            required: [ 'title' ]
+          }
+        },
+        required: [ 'movie' ]
+      }
+    end
+
+    def self.movie_create_response
+      {
+        type: :object,
+        properties: {
+          data: { '$ref': '#/components/schemas/movie' }
+        },
+        required: [ 'data' ]
+      }
+    end
+
     def self.internal_server_error
       {
         type: :object,
@@ -30,6 +58,19 @@ module ApiSchemas
           }
         },
         required: [ 'status', 'error' ]
+      }
+    end
+
+    def self.unprocessable_entity_response
+      {
+        type: :object,
+        properties: {
+          errors: {
+            type: :array,
+            items: { type: :string, example: "Title can't be blank" }
+          }
+        },
+        required: [ 'errors' ]
       }
     end
   end
