@@ -19,6 +19,25 @@ paths:
           description: OK
           content:
             application/json:
+              example:
+                data:
+                - id: 1
+                  title: Movie 1
+                  description: A great movie about something interesting.
+                  release_year: 2001
+                  created_at: '2025-08-11T06:36:45.859Z'
+                  updated_at: '2025-08-11T06:36:45.859Z'
+                - id: 2
+                  title: Movie 2
+                  description: A great movie about something interesting.
+                  release_year: 2002
+                  created_at: '2025-08-11T06:36:45.862Z'
+                  updated_at: '2025-08-11T06:36:45.862Z'
+                meta:
+                  current_page: 1
+                  total_pages: 3
+                  total_count: 5
+                  per_page: 2
               schema:
                 type: object
                 properties:
@@ -60,6 +79,14 @@ paths:
           description: Created
           content:
             application/json:
+              example:
+                data:
+                  id: 6
+                  title: Movie 6
+                  description: A great movie about something interesting.
+                  release_year: 2006
+                  created_at: '2025-08-11T06:36:45.907Z'
+                  updated_at: '2025-08-11T06:36:45.907Z'
               schema:
                 type: object
                 properties:
@@ -71,6 +98,9 @@ paths:
           description: Invalid request
           content:
             application/json:
+              example:
+                errors:
+                - Title can't be blank
               schema:
                 type: object
                 properties:
@@ -95,15 +125,69 @@ paths:
                       example: The Matrix
                     description:
                       type: string
+                      nullable: true
                       example: A computer hacker learns from mysterious rebels about
                         the true nature of his reality.
                     release_year:
                       type: integer
+                      nullable: true
                       example: 1999
                   required:
                   - title
               required:
               - movie
+        required: true
+  "/api/v1/movies/{id}":
+    get:
+      summary: Get movie by ID
+      tags:
+      - Movies
+      description: Retrieve a specific movie by ID
+      parameters:
+      - name: id
+        in: path
+        description: Movie ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Movie found
+          content:
+            application/json:
+              example:
+                data:
+                  id: 7
+                  title: Movie 7
+                  description: A great movie about something interesting.
+                  release_year: 2007
+                  created_at: '2025-08-11T06:36:45.912Z'
+                  updated_at: '2025-08-11T06:36:45.912Z'
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/movie"
+        '404':
+          description: Movie not found
+          content:
+            application/json:
+              example:
+                error:
+                  message: Movie not found
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Movie not found
+                    required:
+                    - message
+                required:
+                - error
 servers:
 - url: http://localhost:3000
   description: Development server
@@ -120,21 +204,25 @@ components:
           example: The Matrix
         description:
           type: string
+          nullable: true
           example: A computer hacker learns about....
         release_year:
           type: integer
+          nullable: true
           example: 1999
         created_at:
           type: string
-          format: date_time
+          format: date-time
           example: '2023-01-01T00:00:00Z'
         updated_at:
           type: string
-          format: date_time
+          format: date-time
           example: '2023-01-02T00:00:00Z'
       required:
       - id
       - title
+      - created_at
+      - updated_at
     pagination_metadata:
       type: object
       properties:
@@ -159,14 +247,16 @@ components:
     page:
       name: page
       in: query
-      type: integer
+      schema:
+        type: integer
       description: 'Page number (default: 1)'
       required: false
       example: 1
     per_page:
       name: per_page
       in: query
-      type: integer
+      schema:
+        type: integer
       description: 'Items per page (default: 2, max: 100)'
       required: false
       example: 2

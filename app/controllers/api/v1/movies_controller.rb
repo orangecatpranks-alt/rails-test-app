@@ -1,4 +1,6 @@
 class Api::V1::MoviesController < Api::BaseController
+  before_action :set_movie, only: [ :show ]
+
   def index
     @movies = Movie.page(params[:page]).per(params[:per_page])
 
@@ -25,9 +27,23 @@ class Api::V1::MoviesController < Api::BaseController
     end
   end
 
+  def show
+    render json: { data: @movie }
+  end
+
   private
 
   def movie_params
     params.require(:movie).permit(:title, :description, :release_year)
+  end
+
+  def set_movie
+    @movie = Movie.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: {
+      error: {
+        message: "Movie not found"
+      }
+    }, status: :not_found
   end
 end

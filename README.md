@@ -54,7 +54,7 @@ bundle exec rspec
 
 ### Quick Update
 1. Edit `spec/requests/api/v1/docs/*_spec.rb`
-2. Run `bin/rails rswag:specs:swaggerize`
+2. Run `SWAGGER_DRY_RUN=false bin/rails rswag:specs:swaggerize`
 
 ### Test Files
 - `docs/*_spec.rb` - Swagger generation

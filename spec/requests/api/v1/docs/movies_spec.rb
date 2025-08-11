@@ -32,7 +32,7 @@ RSpec.describe 'api/v1/movies', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      parameter name: :movie, in: :body, schema: ApiSchemas::V1.movie_create_request
+      parameter name: :movie, in: :body, required: true, schema: ApiSchemas::V1.movie_create_request
 
       response 201, 'Created' do
         schema ApiSchemas::V1.movie_create_response
@@ -48,25 +48,45 @@ RSpec.describe 'api/v1/movies', type: :request do
     end
   end
 
-  # path '/api/v1/movies/{id}' do
-  #   # You'll want to customize the parameter types...
-  #   parameter name: 'id', in: :path, type: :string, description: 'id'
+  path '/api/v1/movies/{id}' do
+    get 'Get movie by ID' do
+      tags 'Movies'
+      description 'Retrieve a specific movie by ID'
+      produces 'application/json'
 
-  #   get('show movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
+      parameter name: :id, in: :path, type: :integer, description: 'Movie ID'
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
+      response 200, 'Movie found' do
+        schema ApiSchemas::V1.movie_show_response
+        let(:movie) { create(:movie) }
+        let(:id) { movie.id }
+        run_test!
+      end
 
+      response 404, 'Movie not found' do
+        schema ApiSchemas::V1.not_found_error
+        let(:id) { 99999 }
+        run_test!
+      end
+    end
+    #   # You'll want to customize the parameter types...
+    #   parameter name: 'id', in: :path, type: :string, description: 'id'
+
+    #   get('show movie') do
+    #     response(200, 'successful') do
+    #       let(:id) { '123' }
+
+    #       after do |example|
+    #         example.metadata[:response][:content] = {
+    #           'application/json' => {
+    #             example: JSON.parse(response.body, symbolize_names: true)
+    #           }
+    #         }
+    #       end
+    #       run_test!
+    #     end
+    #   end
+  end
   #   patch('update movie') do
   #     response(200, 'successful') do
   #       let(:id) { '123' }
@@ -111,5 +131,4 @@ RSpec.describe 'api/v1/movies', type: :request do
   #       run_test!
   #     end
   #   end
-  # end
 end

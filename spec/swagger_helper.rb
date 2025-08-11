@@ -44,24 +44,26 @@ RSpec.configure do |config|
               },
               description: {
                 type: :string,
+                nullable: true,
                 example: 'A computer hacker learns about....'
               },
               release_year: {
                 type: :integer,
+                nullable: true,
                 example: 1999
               },
               created_at: {
                 type: :string,
-                format: :date_time,
+                format: 'date-time',
                 example: '2023-01-01T00:00:00Z'
               },
               updated_at: {
                 type: :string,
-                format: :date_time,
+                format: 'date-time',
                 example: '2023-01-02T00:00:00Z'
               }
             },
-            required: [ 'id', 'title' ]
+            required: [ 'id', 'title', 'created_at', 'updated_at' ]
           },
           pagination_metadata: {
             type: :object,
@@ -78,7 +80,7 @@ RSpec.configure do |config|
           page: {
             name: :page,
             in: :query,
-            type: :integer,
+            schema: { type: :integer },
             description: 'Page number (default: 1)',
             required: false,
             example: 1
@@ -86,7 +88,7 @@ RSpec.configure do |config|
           per_page: {
             name: :per_page,
             in: :query,
-            type: :integer,
+            schema: { type: :integer },
             description: "Items per page (default: #{Kaminari.config.default_per_page}, max: #{Kaminari.config.max_per_page})",
             required: false,
             example: Kaminari.config.default_per_page

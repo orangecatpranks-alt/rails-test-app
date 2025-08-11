@@ -22,8 +22,8 @@ module ApiSchemas
             type: :object,
             properties: {
               title: { type: :string, example: 'The Matrix' },
-              description: { type: :string, example: 'A computer hacker learns from mysterious rebels about the true nature of his reality.' },
-              release_year: { type: :integer, example: 1999 }
+              description: { type: :string, nullable: true, example: 'A computer hacker learns from mysterious rebels about the true nature of his reality.' },
+              release_year: { type: :integer, nullable: true, example: 1999 }
             },
             required: [ 'title' ]
           }
@@ -39,6 +39,15 @@ module ApiSchemas
           data: { '$ref': '#/components/schemas/movie' }
         },
         required: [ 'data' ]
+      }
+    end
+
+    def self.movie_show_response
+      {
+        type: :object,
+        properties: {
+          data: { '$ref': '#/components/schemas/movie' }
+        }
       }
     end
 
@@ -71,6 +80,22 @@ module ApiSchemas
           }
         },
         required: [ 'errors' ]
+      }
+    end
+
+    def self.not_found_error
+      {
+        type: :object,
+        properties: {
+          error: {
+            type: :object,
+            properties: {
+              message: { type: :string, example: 'Movie not found' }
+            },
+            required: [ 'message' ]
+          }
+        },
+        required: [ 'error' ]
       }
     end
   end
