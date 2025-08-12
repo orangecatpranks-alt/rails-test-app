@@ -32,10 +32,10 @@ RSpec.describe 'api/v1/movies', type: :request do
       consumes 'application/json'
       produces 'application/json'
 
-      parameter name: :movie, in: :body, required: true, schema: ApiSchemas::V1.movie_create_request
+      parameter name: :movie, in: :body, required: true, schema: ApiSchemas::V1.movie_request
 
       response 201, 'Created' do
-        schema ApiSchemas::V1.movie_create_response
+        schema ApiSchemas::V1.movie_response
         let(:movie) { { movie: attributes_for(:movie) } }
         run_test!
       end
@@ -57,7 +57,7 @@ RSpec.describe 'api/v1/movies', type: :request do
       parameter name: :id, in: :path, type: :integer, description: 'Movie ID'
 
       response 200, 'Movie found' do
-        schema ApiSchemas::V1.movie_show_response
+        schema ApiSchemas::V1.movie_response
         let(:movie) { create(:movie) }
         let(:id) { movie.id }
         run_test!
@@ -89,34 +89,71 @@ RSpec.describe 'api/v1/movies', type: :request do
         run_test!
       end
     end
+
+    patch 'Update movie (partial update)' do
+      tags 'Movies'
+      description 'Partially update movie information'
+      consumes 'application/json'
+      produces 'application/json'
+
+      parameter name: :id, in: :path, type: :integer, description: 'Movie ID'
+      parameter name: :movie, in: :body, required: true, schema: ApiSchemas::V1.movie_patch_request
+
+      response 200, 'Movie updated successfully' do
+        schema ApiSchemas::V1.movie_response
+        let(:existing_movie) { create(:movie) }
+        let(:id) { existing_movie.id }
+        let(:movie) { { movie: { title: 'Partially Updated Title' } } }
+        run_test!
+      end
+
+      response 404, 'Movie not found' do
+        schema ApiSchemas::V1.not_found_error
+        let(:id) { 99999 }
+        let(:movie) { { movie: { title: 'New Title' } } }
+        run_test!
+      end
+
+      response 422, 'Invalid request' do
+        schema ApiSchemas::V1.unprocessable_entity_response
+        let(:existing_movie) { create(:movie) }
+        let(:id) { existing_movie.id }
+        let(:movie) { { movie: { title: '' } } }
+        run_test!
+      end
+    end
+
+    put 'Update movie (full update)' do
+      tags 'Movies'
+      description 'Fully update movie information'
+      consumes 'application/json'
+      produces 'application/json'
+
+      parameter name: :id, in: :path, type: :integer, description: 'Movie ID'
+      parameter name: :movie, in: :body, required: true, schema: ApiSchemas::V1.movie_request
+
+      response 200, 'Movie updated successfully' do
+        schema ApiSchemas::V1.movie_response
+        let(:existing_movie) { create(:movie) }
+        let(:id) { existing_movie.id }
+        let(:movie) { { movie: { title: 'Updated Title', description: 'Updated description' } } }
+        run_test!
+      end
+
+      response 404, 'Movie not found' do
+        schema ApiSchemas::V1.not_found_error
+        let(:id) { 99999 }
+        let(:movie) { { movie: attributes_for(:movie) } }
+        run_test!
+      end
+
+      response 422, 'Invalid request' do
+        schema ApiSchemas::V1.unprocessable_entity_response
+        let(:existing_movie) { create(:movie) }
+        let(:id) { existing_movie.id }
+        let(:movie) { { movie: { title: '' } } }
+        run_test!
+      end
+    end
   end
-  #   patch('update movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-
-  #   put('update movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
 end

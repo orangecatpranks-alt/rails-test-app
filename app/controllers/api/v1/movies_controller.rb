@@ -1,5 +1,5 @@
 class Api::V1::MoviesController < Api::BaseController
-  before_action :set_movie, only: [ :show, :destroy ]
+  before_action :set_movie, only: [ :show, :update, :destroy ]
 
   def index
     @movies = Movie.page(params[:page]).per(params[:per_page])
@@ -29,6 +29,16 @@ class Api::V1::MoviesController < Api::BaseController
 
   def show
     render json: { data: @movie }
+  end
+
+  def update
+    if @movie.update(movie_params)
+      render json: { data: @movie }, status: :ok
+    else
+      render json: {
+        errors: @movie.errors.full_messages
+      }, status: :unprocessable_entity
+    end
   end
 
   def destroy

@@ -14,7 +14,7 @@ module ApiSchemas
       }
     end
 
-    def self.movie_create_request
+    def self.movie_request
       {
         type: :object,
         properties: {
@@ -32,7 +32,7 @@ module ApiSchemas
       }
     end
 
-    def self.movie_create_response
+    def self.movie_response
       {
         type: :object,
         properties: {
@@ -42,12 +42,20 @@ module ApiSchemas
       }
     end
 
-    def self.movie_show_response
+    def self.movie_patch_request
       {
         type: :object,
         properties: {
-          data: { '$ref': '#/components/schemas/movie' }
-        }
+          movie: {
+            type: :object,
+            properties: {
+              title: { type: :string, example: 'The Matrix Revolutions' },
+              description: { type: :string, nullable: true, example: 'The human city of Zion defends itself against the massive invasion of the machines.' },
+              release_year: { type: :integer, nullable: true, example: 2003 }
+            }
+          }
+        },
+        required: [ 'movie' ]
       }
     end
 
