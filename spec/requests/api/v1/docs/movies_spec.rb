@@ -45,6 +45,13 @@ RSpec.describe 'api/v1/movies', type: :request do
         let(:movie) { { movie: { title: '', description: 'Invalid movie without title' } } }
         run_test!
       end
+
+      response 500, 'Internal server error' do
+        schema ApiSchemas::V1.internal_server_error
+        it 'documents 500 error only' do
+          # no request — used only for OpenAPI docs
+        end
+      end
     end
   end
 
@@ -68,6 +75,13 @@ RSpec.describe 'api/v1/movies', type: :request do
         let(:id) { 99999 }
         run_test!
       end
+
+      response 500, 'Internal server error' do
+        schema ApiSchemas::V1.internal_server_error
+        it 'documents 500 error only' do
+          # no request — used only for OpenAPI docs
+        end
+      end
     end
 
     delete 'Delete movie by ID' do
@@ -87,6 +101,13 @@ RSpec.describe 'api/v1/movies', type: :request do
         schema ApiSchemas::V1.not_found_error
         let(:id) { 99999 }
         run_test!
+      end
+
+      response 500, 'Internal server error' do
+        schema ApiSchemas::V1.internal_server_error
+        it 'documents 500 error only' do
+          # no request — used only for OpenAPI docs
+        end
       end
     end
 
@@ -121,6 +142,13 @@ RSpec.describe 'api/v1/movies', type: :request do
         let(:movie) { { movie: { title: '' } } }
         run_test!
       end
+
+      response 500, 'Internal server error' do
+        schema ApiSchemas::V1.internal_server_error
+        it 'documents 500 error only' do
+          # no request — used only for OpenAPI docs
+        end
+      end
     end
 
     put 'Update movie (full update)' do
@@ -153,6 +181,13 @@ RSpec.describe 'api/v1/movies', type: :request do
         let(:id) { existing_movie.id }
         let(:movie) { { movie: { title: '' } } }
         run_test!
+      end
+
+      response 500, 'Internal server error' do
+        schema ApiSchemas::V1.internal_server_error
+        it 'documents 500 error only' do
+          # no request — used only for OpenAPI docs
+        end
       end
     end
   end

@@ -25,14 +25,14 @@ paths:
                   title: Movie 1
                   description: A great movie about something interesting.
                   release_year: 2001
-                  created_at: '2025-08-12T06:05:36.265Z'
-                  updated_at: '2025-08-12T06:05:36.265Z'
+                  created_at: '2025-08-12T06:13:51.243Z'
+                  updated_at: '2025-08-12T06:13:51.243Z'
                 - id: 2
                   title: Movie 2
                   description: A great movie about something interesting.
                   release_year: 2002
-                  created_at: '2025-08-12T06:05:36.268Z'
-                  updated_at: '2025-08-12T06:05:36.268Z'
+                  created_at: '2025-08-12T06:13:51.246Z'
+                  updated_at: '2025-08-12T06:13:51.246Z'
                 meta:
                   current_page: 1
                   total_pages: 3
@@ -85,8 +85,8 @@ paths:
                   title: Movie 6
                   description: A great movie about something interesting.
                   release_year: 2006
-                  created_at: '2025-08-12T06:05:36.301Z'
-                  updated_at: '2025-08-12T06:05:36.301Z'
+                  created_at: '2025-08-12T06:13:51.290Z'
+                  updated_at: '2025-08-12T06:13:51.290Z'
               schema:
                 type: object
                 properties:
@@ -111,6 +111,24 @@ paths:
                       example: Title can't be blank
                 required:
                 - errors
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                    description: HTTP status code
+                  error:
+                    type: string
+                    example: Internal Server Error
+                    description: Error message
+                required:
+                - status
+                - error
       requestBody:
         content:
           application/json:
@@ -161,8 +179,8 @@ paths:
                   title: Movie 7
                   description: A great movie about something interesting.
                   release_year: 2007
-                  created_at: '2025-08-12T06:05:36.306Z'
-                  updated_at: '2025-08-12T06:05:36.306Z'
+                  created_at: '2025-08-12T06:13:51.296Z'
+                  updated_at: '2025-08-12T06:13:51.296Z'
               schema:
                 type: object
                 properties:
@@ -189,6 +207,24 @@ paths:
                     required:
                     - message
                 required:
+                - error
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                    description: HTTP status code
+                  error:
+                    type: string
+                    example: Internal Server Error
+                    description: Error message
+                required:
+                - status
                 - error
     delete:
       summary: Delete movie by ID
@@ -225,6 +261,24 @@ paths:
                     - message
                 required:
                 - error
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                    description: HTTP status code
+                  error:
+                    type: string
+                    example: Internal Server Error
+                    description: Error message
+                required:
+                - status
+                - error
     patch:
       summary: Update movie (partial update)
       tags:
@@ -248,8 +302,8 @@ paths:
                   release_year: 2009
                   id: 9
                   description: A great movie about something interesting.
-                  created_at: '2025-08-12T06:05:36.325Z'
-                  updated_at: '2025-08-12T06:05:36.326Z'
+                  created_at: '2025-08-12T06:13:51.319Z'
+                  updated_at: '2025-08-12T06:13:51.320Z'
               schema:
                 type: object
                 properties:
@@ -294,6 +348,24 @@ paths:
                       example: Title can't be blank
                 required:
                 - errors
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                    description: HTTP status code
+                  error:
+                    type: string
+                    example: Internal Server Error
+                    description: Error message
+                required:
+                - status
+                - error
       requestBody:
         content:
           application/json:
@@ -341,8 +413,8 @@ paths:
                   description: Updated description
                   release_year: 2011
                   id: 11
-                  created_at: '2025-08-12T06:05:36.333Z'
-                  updated_at: '2025-08-12T06:05:36.334Z'
+                  created_at: '2025-08-12T06:13:51.327Z'
+                  updated_at: '2025-08-12T06:13:51.328Z'
               schema:
                 type: object
                 properties:
@@ -387,6 +459,24 @@ paths:
                       example: Title can't be blank
                 required:
                 - errors
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                    description: HTTP status code
+                  error:
+                    type: string
+                    example: Internal Server Error
+                    description: Error message
+                required:
+                - status
+                - error
       requestBody:
         content:
           application/json:
