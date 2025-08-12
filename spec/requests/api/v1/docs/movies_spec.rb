@@ -69,23 +69,26 @@ RSpec.describe 'api/v1/movies', type: :request do
         run_test!
       end
     end
-    #   # You'll want to customize the parameter types...
-    #   parameter name: 'id', in: :path, type: :string, description: 'id'
 
-    #   get('show movie') do
-    #     response(200, 'successful') do
-    #       let(:id) { '123' }
+    delete 'Delete movie by ID' do
+      tags 'Movies'
+      description 'Delete a specific movie by ID'
+      produces 'application/json'
 
-    #       after do |example|
-    #         example.metadata[:response][:content] = {
-    #           'application/json' => {
-    #             example: JSON.parse(response.body, symbolize_names: true)
-    #           }
-    #         }
-    #       end
-    #       run_test!
-    #     end
-    #   end
+      parameter name: :id, in: :path, type: :integer, description: 'Movie ID'
+
+      response 204, 'Movie deleted successfully' do
+        let(:movie) { create(:movie) }
+        let(:id) { movie.id }
+        run_test!
+      end
+
+      response 404, 'Movie not found' do
+        schema ApiSchemas::V1.not_found_error
+        let(:id) { 99999 }
+        run_test!
+      end
+    end
   end
   #   patch('update movie') do
   #     response(200, 'successful') do
@@ -103,21 +106,6 @@ RSpec.describe 'api/v1/movies', type: :request do
   #   end
 
   #   put('update movie') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-
-  #   delete('delete movie') do
   #     response(200, 'successful') do
   #       let(:id) { '123' }
 

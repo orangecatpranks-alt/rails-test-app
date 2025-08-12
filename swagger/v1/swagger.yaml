@@ -25,14 +25,14 @@ paths:
                   title: Movie 1
                   description: A great movie about something interesting.
                   release_year: 2001
-                  created_at: '2025-08-11T06:36:45.859Z'
-                  updated_at: '2025-08-11T06:36:45.859Z'
+                  created_at: '2025-08-12T02:53:29.829Z'
+                  updated_at: '2025-08-12T02:53:29.829Z'
                 - id: 2
                   title: Movie 2
                   description: A great movie about something interesting.
                   release_year: 2002
-                  created_at: '2025-08-11T06:36:45.862Z'
-                  updated_at: '2025-08-11T06:36:45.862Z'
+                  created_at: '2025-08-12T02:53:29.833Z'
+                  updated_at: '2025-08-12T02:53:29.833Z'
                 meta:
                   current_page: 1
                   total_pages: 3
@@ -85,8 +85,8 @@ paths:
                   title: Movie 6
                   description: A great movie about something interesting.
                   release_year: 2006
-                  created_at: '2025-08-11T06:36:45.907Z'
-                  updated_at: '2025-08-11T06:36:45.907Z'
+                  created_at: '2025-08-12T02:53:29.867Z'
+                  updated_at: '2025-08-12T02:53:29.867Z'
               schema:
                 type: object
                 properties:
@@ -161,13 +161,48 @@ paths:
                   title: Movie 7
                   description: A great movie about something interesting.
                   release_year: 2007
-                  created_at: '2025-08-11T06:36:45.912Z'
-                  updated_at: '2025-08-11T06:36:45.912Z'
+                  created_at: '2025-08-12T02:53:29.871Z'
+                  updated_at: '2025-08-12T02:53:29.871Z'
               schema:
                 type: object
                 properties:
                   data:
                     "$ref": "#/components/schemas/movie"
+        '404':
+          description: Movie not found
+          content:
+            application/json:
+              example:
+                error:
+                  message: Movie not found
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Movie not found
+                    required:
+                    - message
+                required:
+                - error
+    delete:
+      summary: Delete movie by ID
+      tags:
+      - Movies
+      description: Delete a specific movie by ID
+      parameters:
+      - name: id
+        in: path
+        description: Movie ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Movie deleted successfully
         '404':
           description: Movie not found
           content:

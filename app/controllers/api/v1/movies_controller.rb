@@ -1,5 +1,5 @@
 class Api::V1::MoviesController < Api::BaseController
-  before_action :set_movie, only: [ :show ]
+  before_action :set_movie, only: [ :show, :destroy ]
 
   def index
     @movies = Movie.page(params[:page]).per(params[:per_page])
@@ -29,6 +29,11 @@ class Api::V1::MoviesController < Api::BaseController
 
   def show
     render json: { data: @movie }
+  end
+
+  def destroy
+    @movie.destroy
+    head :no_content
   end
 
   private
