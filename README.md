@@ -40,7 +40,7 @@ bin/rails server
 
 ```bash
 # Using Docker
-docker compose run test
+docker compose run --rm test
 
 # Local Development
 bundle exec rspec

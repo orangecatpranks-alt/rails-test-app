@@ -43,6 +43,11 @@ gem "thruster", require: false
 # Pagination
 gem "kaminari"
 
+# API documentation
+# Enabled in production for portfolio demonstration
+gem "rswag-api"
+gem "rswag-ui"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -58,9 +63,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "shoulda-matchers"
 
-  # API documentation generator from RSpec tests
-  gem "rswag-api"
-  gem "rswag-ui"
+  # Spec helpers for generating Swagger docs from RSpec tests
   gem "rswag-specs"
 end
 

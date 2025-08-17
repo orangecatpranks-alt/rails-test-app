@@ -25,8 +25,8 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'http://localhost:3000',
-          description: 'Development server'
+          url: '/', # NOTE: Use '/' to make it work in both dev and prod
+          description: 'Default server (works for both dev and prod)'
         }
       ],
       components: {

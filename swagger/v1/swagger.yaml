@@ -25,14 +25,14 @@ paths:
                   title: Movie 1
                   description: A great movie about something interesting.
                   release_year: 2001
-                  created_at: '2025-08-12T06:13:51.243Z'
-                  updated_at: '2025-08-12T06:13:51.243Z'
+                  created_at: '2025-08-25T00:34:12.087Z'
+                  updated_at: '2025-08-25T00:34:12.087Z'
                 - id: 2
                   title: Movie 2
                   description: A great movie about something interesting.
                   release_year: 2002
-                  created_at: '2025-08-12T06:13:51.246Z'
-                  updated_at: '2025-08-12T06:13:51.246Z'
+                  created_at: '2025-08-25T00:34:12.089Z'
+                  updated_at: '2025-08-25T00:34:12.089Z'
                 meta:
                   current_page: 1
                   total_pages: 3
@@ -85,8 +85,8 @@ paths:
                   title: Movie 6
                   description: A great movie about something interesting.
                   release_year: 2006
-                  created_at: '2025-08-12T06:13:51.290Z'
-                  updated_at: '2025-08-12T06:13:51.290Z'
+                  created_at: '2025-08-25T00:34:12.135Z'
+                  updated_at: '2025-08-25T00:34:12.135Z'
               schema:
                 type: object
                 properties:
@@ -179,8 +179,8 @@ paths:
                   title: Movie 7
                   description: A great movie about something interesting.
                   release_year: 2007
-                  created_at: '2025-08-12T06:13:51.296Z'
-                  updated_at: '2025-08-12T06:13:51.296Z'
+                  created_at: '2025-08-25T00:34:12.141Z'
+                  updated_at: '2025-08-25T00:34:12.141Z'
               schema:
                 type: object
                 properties:
@@ -302,8 +302,8 @@ paths:
                   release_year: 2009
                   id: 9
                   description: A great movie about something interesting.
-                  created_at: '2025-08-12T06:13:51.319Z'
-                  updated_at: '2025-08-12T06:13:51.320Z'
+                  created_at: '2025-08-25T00:34:12.162Z'
+                  updated_at: '2025-08-25T00:34:12.164Z'
               schema:
                 type: object
                 properties:
@@ -413,8 +413,8 @@ paths:
                   description: Updated description
                   release_year: 2011
                   id: 11
-                  created_at: '2025-08-12T06:13:51.327Z'
-                  updated_at: '2025-08-12T06:13:51.328Z'
+                  created_at: '2025-08-25T00:34:12.170Z'
+                  updated_at: '2025-08-25T00:34:12.171Z'
               schema:
                 type: object
                 properties:
@@ -504,8 +504,8 @@ paths:
               - movie
         required: true
 servers:
-- url: http://localhost:3000
-  description: Development server
+- url: "/"
+  description: Default server (works for both dev and prod)
 components:
   schemas:
     movie:
