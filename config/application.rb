@@ -23,5 +23,8 @@ module RailsMovieApi
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Add middleware directory to eager load paths
+    config.eager_load_paths << Rails.root.join("app/middleware")
   end
 end

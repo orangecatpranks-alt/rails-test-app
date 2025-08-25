@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require Rails.root.join("app/middleware/basic_auth_api_docs")
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -87,4 +88,7 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Enable Basic Authentication middleware for API documentation in production only
+  config.middleware.insert_before ActionDispatch::Static, BasicAuthApiDocs
 end
